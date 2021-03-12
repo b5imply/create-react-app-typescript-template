@@ -17,9 +17,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react-jsx",
+    "noFallthroughCasesInSwitch": true,
   },
   "include": [
-    "src"
+    "src",
+    "babel-plugin-macros.config.js",
+    "src/styles/theme.d.ts"
   ]
 }
