@@ -1,13 +1,27 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/naming-convention */
-import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse, Method } from 'axios';
+import axios, {
+  AxiosPromise,
+  AxiosRequestConfig,
+  AxiosResponse,
+  Method,
+} from 'axios';
 
 export interface IApiService {
   token: string;
   baseUrl: string;
   config: any;
   get: (path: string, extras?: AxiosRequestConfig) => AxiosPromise<any>;
-  post: (path: string, data: any, extras?: AxiosRequestConfig) => AxiosPromise<any>;
-  put: (path: string, data: any, extras?: AxiosRequestConfig) => AxiosPromise<any>;
+  post: (
+    path: string,
+    data: any,
+    extras?: AxiosRequestConfig,
+  ) => AxiosPromise<any>;
+  put: (
+    path: string,
+    data: any,
+    extras?: AxiosRequestConfig,
+  ) => AxiosPromise<any>;
   delete: (path: string, extras?: any) => AxiosPromise<any>;
   uploadFiles: (
     path: string,
@@ -42,14 +56,22 @@ class ApiService implements IApiService {
     return axios.get(this.baseUrl + path, newConfig);
   };
 
-  post = (path: string, data: any, extras?: AxiosRequestConfig): AxiosPromise<any> => {
+  post = (
+    path: string,
+    data: any,
+    extras?: AxiosRequestConfig,
+  ): AxiosPromise<any> => {
     const newConfig = (extras
       ? { headers: { ...this.config.headers, ...extras.headers } }
       : this.config) as AxiosRequestConfig;
     return axios.post(this.baseUrl + path, data, newConfig);
   };
 
-  put = (path: string, data: any, extras?: AxiosRequestConfig): AxiosPromise<any> => {
+  put = (
+    path: string,
+    data: any,
+    extras?: AxiosRequestConfig,
+  ): AxiosPromise<any> => {
     const newConfig = (extras
       ? { headers: { ...this.config.headers, ...extras.headers } }
       : this.config) as AxiosRequestConfig;
@@ -101,27 +123,37 @@ class ApiService implements IApiService {
     });
   };
 
-  downloadFile = (path: string, filename: string, method: Method = 'get'): void => {
-    this.fetchBlobURL(path, 'application/octet-stream', method).then((blobUrl: string) => {
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.setAttribute('download', filename);
+  downloadFile = (
+    path: string,
+    filename: string,
+    method: Method = 'get',
+  ): void => {
+    this.fetchBlobURL(path, 'application/octet-stream', method).then(
+      (blobUrl: string) => {
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.setAttribute('download', filename);
 
-      const clickHandler = () => {
-        setTimeout(() => {
-          URL.revokeObjectURL(blobUrl);
-          link.removeEventListener('click', clickHandler);
-          document.body.removeChild(link);
-        }, 150);
-      };
+        const clickHandler = () => {
+          setTimeout(() => {
+            URL.revokeObjectURL(blobUrl);
+            link.removeEventListener('click', clickHandler);
+            document.body.removeChild(link);
+          }, 150);
+        };
 
-      document.body.appendChild(link);
-      link.addEventListener('click', clickHandler, false);
-      link.click();
-    });
+        document.body.appendChild(link);
+        link.addEventListener('click', clickHandler, false);
+        link.click();
+      },
+    );
   };
 
-  private fetchBlobURL = (path: string, type: string, method: Method = 'get') => {
+  private fetchBlobURL = (
+    path: string,
+    type: string,
+    method: Method = 'get',
+  ) => {
     return axios({
       url: this.baseUrl + path,
       method,
@@ -130,8 +162,11 @@ class ApiService implements IApiService {
         Authorization: `Bearer ${this.token}`,
       },
     }).then(response => {
-      if (response.status >= 400 && response.status < 600) throw new Error(response.statusText);
-      const bloburl = window.URL.createObjectURL(new Blob([response.data], { type }));
+      if (response.status >= 400 && response.status < 600)
+        throw new Error(response.statusText);
+      const bloburl = window.URL.createObjectURL(
+        new Blob([response.data], { type }),
+      );
       return bloburl;
     });
   };

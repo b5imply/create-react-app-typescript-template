@@ -1,5 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { AppStateContext, initAppState, AppState } from '../../state/Contexts/AppStateContext';
+import {
+  AppStateContext,
+  initAppState,
+  AppState,
+} from '../../state/Contexts/AppStateContext';
 
 const AppStateProvider: React.FC = ({ children }) => {
   const [appState, setNewAppState] = useState<AppState>(initAppState.appState);

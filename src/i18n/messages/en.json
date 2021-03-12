@@ -1,3 +1,4 @@
 {
- "home.header.title": "Header ${title}"
+ "home.edit": "Edit {path} and save to reload.",
+ "home.link": "Learn React"
 }

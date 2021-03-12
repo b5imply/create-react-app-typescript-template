@@ -17,30 +17,30 @@
   },
   "ignorePatterns": [
     // Build and Packages
-    "/node_modules/**",
     "/build/**",
+    "/node_modules/**",
     // Ignore specific files
-    "/**/.DS_STORE",
     "/**/.env",
+    "/**/.DS_STORE",
     // Log Files
+    "/**/debug.log*",
     "/**/npm-debug.log*",
     "/**/yarn-debug.log*",
     "/**/yarn-error.log*",
-    "/**/debug.log*",
     // Unsupported files
     "*.eot",
+    "*.jpeg",
+    "*.js.pnp",
+    "*.md",
+    "*.png",
+    "*.pnp",
     "*.svg",
     "*.ttf",
     "*.woff",
-    "*.png",
-    "*.jpeg",
-    "*.md",
-    "*.pnp",
-    "*.js.pnp",
     // Stylings
-    "*.css",
+    "/**/babel-plugin-macros.config.js",
     "*.scss",
-    "/**/babel-plugin-macros.config.js"
+    "*.css"
   ],
   "rules": {
     "no-console": ["warn", { "allow": ["warn", "error", "info"] }],

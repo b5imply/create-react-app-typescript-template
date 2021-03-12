@@ -31,14 +31,18 @@ const ResponsiveContextComponent: React.FC<Props> = ({
   }
   if (
     (isTablet && isPortrait) ||
-    (width > theme.sizes.screen.phone && width < theme.sizes.screen.tabletPortrait) ||
-    (width >= theme.sizes.screen.phone && width < theme.sizes.screen.tabletPortrait && isPortrait)
+    (width > theme.sizes.screen.phone &&
+      width < theme.sizes.screen.tabletPortrait) ||
+    (width >= theme.sizes.screen.phone &&
+      width < theme.sizes.screen.tabletPortrait &&
+      isPortrait)
   ) {
     device = SupportedDevice.tabletPortrait;
   }
   if (
     (isTablet && isLandscape) ||
-    (width > theme.sizes.screen.tabletPortrait && width < theme.sizes.screen.tabletLandscape) ||
+    (width > theme.sizes.screen.tabletPortrait &&
+      width < theme.sizes.screen.tabletLandscape) ||
     (width >= theme.sizes.screen.tabletPortrait &&
       width < theme.sizes.screen.tabletLandscape &&
       isLandscape)
@@ -52,7 +56,11 @@ const ResponsiveContextComponent: React.FC<Props> = ({
     currentDevice: device,
   };
 
-  return <ResponsiveContext.Provider value={contextValue}>{children}</ResponsiveContext.Provider>;
+  return (
+    <ResponsiveContext.Provider value={contextValue}>
+      {children}
+    </ResponsiveContext.Provider>
+  );
 };
 
 export default withOrientationChange(ResponsiveContextComponent);
